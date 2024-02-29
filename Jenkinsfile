@@ -21,7 +21,7 @@ pipeline {
 
         stage('maven build artifact') {
             steps {
-                sh 'mvn clean package -DskipTests=true -Dcheckstyle.skip=true'
+                sh 'mvn clean package -DskipTests=true'
             }
         }
 
@@ -46,8 +46,9 @@ pipeline {
 
         stage('docker image push') {
             steps {
-                withDockerRegistry(credentialsId: 'dockerhub', url: '') {
-                    sh "docker push spring-clinic/petapp:${BUILD_NUMBER}"
+                script {
+                    withDockerRegistry([credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/']) {
+                sh "docker push spring-clinic/petapp:${BUILD_NUMBER}"
                 }
             }
         }
