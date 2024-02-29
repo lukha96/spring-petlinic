@@ -63,7 +63,7 @@ pipeline {
                         def jarFile = "target/spring-petclinic-3.2.0-SNAPSHOT.jar"
                         sh "aws s3 cp ${jarFile} s3://bucketjfrog/"
                     }
-
+                }
             }
         }
     }
