@@ -47,7 +47,7 @@ pipeline {
         stage('docker image push') {
             steps {
                 withDockerRegistry(credentialsId: 'dockerhub', url: '') {
-                    sh "docker push lukha96/spring-clinic:tagname"
+                    sh "docker push spring-clinic/petapp:${BUILD_NUMBER}"
                 }
             }
         }
