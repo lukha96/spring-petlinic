@@ -47,7 +47,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry([credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/']) {
-                        sh "docker push lukha96/spring-clinic:${BUILD_NUMBER}"
+                        sh "docker push lukha96/spring-clinic:tagname"
                     }
                 }
             }
