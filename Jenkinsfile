@@ -56,9 +56,14 @@ pipeline {
         stage('Push to AWS S3') {
             steps {
                 script {
-                    def jarFile = 'target/spring-petclinic-3.2.0-SNAPSHOT.jar'
-                    sh "aws s3 cp ${jarFile} s3://bucketjfrog/"
-                }
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: 'AWS',
+                    ]]) {
+                        def jarFile = "target/spring-petclinic-3.2.0-SNAPSHOT.jar"
+                        sh "aws s3 cp ${jarFile} s3://bucketjfrog/"
+                    }
+
             }
         }
     }
