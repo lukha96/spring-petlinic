@@ -33,13 +33,13 @@ pipeline {
 
         stage('building a docker image') {
             steps {
-               sh "docker build -t spring-clinic/petapp:${BUILD_NUMBER} ."
+               sh "docker build -t lukha96/spring-clinic:tagname ."
             }
         }
 
         stage("TRIVY") {
             steps {
-                sh "trivy image  spring-clinic/petapp:${BUILD_NUMBER} --scanners vuln > trivyimage.txt"
+                sh "trivy image  lukha96/spring-clinic:tagname --scanners vuln > trivyimage.txt"
             }
         }
 
