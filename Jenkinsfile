@@ -34,7 +34,6 @@ pipeline {
         stage('building a docker image') {
             steps {
                sh "docker build -t spring-clinic/petapp:${BUILD_NUMBER} ."
-
             }
         }
 
@@ -48,19 +47,19 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry([credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/']) {
-                sh "docker push spring-clinic/petapp:${BUILD_NUMBER}"
+                        sh "docker push spring-clinic/petapp:${BUILD_NUMBER}"
+                    }
                 }
             }
         }
 
-stage('Push to AWS S3') {
-    steps {
-        script {
-            def jarFile = 'target/spring-petclinic-3.2.0-SNAPSHOT.jar'
-
-            sh "aws s3 cp ${jarFile} s3://bucketjfrog/"
-               }
-             }
-         }
-      }
-   }
+        stage('Push to AWS S3') {
+            steps {
+                script {
+                    def jarFile = 'target/spring-petclinic-3.2.0-SNAPSHOT.jar'
+                    sh "aws s3 cp ${jarFile} s3://bucketjfrog/"
+                }
+            }
+        }
+    }
+}
